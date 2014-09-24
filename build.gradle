@@ -1,0 +1,55 @@
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+
+buildscript {
+    repositories {
+        jcenter()
+        maven { url "http://repo.spring.io/snapshot" }
+        maven { url "http://repo.spring.io/milestone" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.0.BUILD-SNAPSHOT")
+        classpath 'org.springframework:springloaded:1.2.0.RELEASE'
+    }
+}
+
+repositories {
+    jcenter()
+    maven { url "http://repo.spring.io/snapshot" }
+    maven { url "http://repo.spring.io/milestone" }
+}
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.pegdown:pegdown:1.4.2")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = file("$buildDir/classes/main/")
+    }
+}
+
+idea.module.iml {
+    beforeMerged { module ->
+        module.dependencies.clear()
+    }
+    whenMerged { module ->
+        module.dependencies*.exported = true
+    }
+}
+
+idea.project.ipr {
+    beforeMerged { project ->
+        project.modulePaths.clear()
+    }
+    withXml { provider ->
+        provider.node.component
+                .find { it.@name == 'VcsDirectoryMappings' }
+                .mapping.@vcs = 'Git'
+    }
+}

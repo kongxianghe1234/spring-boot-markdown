@@ -24,7 +24,7 @@ public class HelloWorld {
         return "Hello World!";
     }
 
-    @RequestMapping(value = "/p/{page}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{page}", method = RequestMethod.GET)
     @ResponseBody
     String page(@PathVariable("page") String page) throws IOException {
         String markdownFile = new ClassPathResource("/" + page + ".md", getClass())
@@ -33,9 +33,7 @@ public class HelloWorld {
 
         String fileContents = new String(Files.readAllBytes(Paths.get(markdownFile)));
 
-        String markdown = new PegDownProcessor().markdownToHtml(fileContents);
-
-        return markdown;
+        return new PegDownProcessor().markdownToHtml(fileContents);
     }
 
     public static void main(String[] args) throws Exception {

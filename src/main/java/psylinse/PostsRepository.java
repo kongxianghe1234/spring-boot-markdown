@@ -17,7 +17,7 @@ public class PostsRepository {
     private PegDownProcessor pegDownProcessor = new PegDownProcessor();
 
     public List<String> all() throws IOException {
-        ClassPathResource classPathResource = new ClassPathResource("/posts/", getClass());
+        ClassPathResource classPathResource = new ClassPathResource("/posts/");
 
         List<String> posts = new ArrayList<>();
         File[] files = classPathResource.getFile().listFiles();
@@ -33,7 +33,7 @@ public class PostsRepository {
     }
 
     public String get(String name) throws IOException {
-        String markdownFile = new ClassPathResource("/posts/" + name + ".md", getClass())
+        String markdownFile = new ClassPathResource("/posts/" + name + ".md")
             .getFile()
             .getAbsolutePath();
 

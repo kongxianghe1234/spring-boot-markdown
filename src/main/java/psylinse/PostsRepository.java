@@ -22,13 +22,12 @@ public class PostsRepository {
         List<String> posts = new ArrayList<>();
         File[] files = classPathResource.getFile().listFiles();
 
-        if (files == null) {
-            throw new RuntimeException("Something went really wrong");
-        }
+        if (files == null) throw new RuntimeException("Something went really wrong");
 
         Arrays.asList(files).forEach(
             (post) -> posts.add(post.getName().split(".md")[0])
         );
+
         return posts;
     }
 

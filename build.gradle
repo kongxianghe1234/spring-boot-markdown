@@ -23,6 +23,7 @@ repositories {
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.pegdown:pegdown:1.4.2")
+    compile("de.neuland-bfi:spring-jade4j:0.4.0")
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
 
